@@ -5,6 +5,7 @@ import AddPerson from './components/AddPerson'
 import Filter from './components/Filter'
 
 
+
 const App = () => {
 
 useEffect(() => {
@@ -12,6 +13,9 @@ useEffect(() => {
     .get('http://localhost:3001/persons')
     .then((response)=> {setPersons(response.data)})
 },[])
+
+
+
 
   const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
@@ -39,19 +43,21 @@ useEffect(() => {
     else {
     const noteObject = {
       name: newName,
-      id: persons.length,
+      id: persons.length+1,
       number: newNumber,
     }
     setPersons(persons.concat(noteObject))
     console.log(persons)
     setNewName('')
     setNewNumber('')
+
+    axios
+      .post('http://localhost:3001/persons',noteObject)
+      .then(response => {
+        console.log(response)
+      })
   }
   }
-
-  
-
-
   return (
     <div>
        <h2>Phonebook</h2>

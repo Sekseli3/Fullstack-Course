@@ -4,6 +4,7 @@ import Persons from './components/Persons'
 import AddPerson from './components/AddPerson'
 import Filter from './components/Filter'
 import noteService from './services/persons'
+import DeletePersons from './components/DeletePerson'
 
 
 
@@ -15,13 +16,22 @@ useEffect(() => {
     .then((response)=> {setPersons(response.data)})
 },[])
 
-
+const deletePerson = (id, name) => {
+  if (window.confirm(`Delete ${name}?`)) {
+    noteService.remove(id).then((response) => {
+      const updatedPersons = persons.filter((person) => person.id !== id);
+      setPersons(updatedPersons);
+      
+    })
+  }
+}
 
 
   const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
   const [newNumber,setNewNumber] = useState('')
   const [newFilter,setNewFilter] = useState('')
+  const [newFilteredPersons,setFilteredPersons] = useState([])
   
   const handleNumberChange = (event) => {
     console.log(event.target.value)
@@ -36,6 +46,7 @@ useEffect(() => {
   const handleFilterChange = (event) => {
     console.log(event.target.value)
     setNewFilter(event.target.value)
+    setFilteredPersons(persons)
   }
 
   const addPerson = (event) => {
@@ -67,7 +78,8 @@ useEffect(() => {
     <Filter newFilter={newFilter} handleFilterChange={handleFilterChange}/>
     <AddPerson addPerson={addPerson} handleNameChange={handleNameChange} newName={newName} newNumber={newNumber} handleNumberChange={handleNumberChange}/>
       <h2>Numbers</h2>
-    <Persons newFilter={newFilter} persons={persons}/>
+    
+  <DeletePersons personsToShow={persons} deletePerson={deletePerson} newFilter = {newFilter}/>
     </div>
   )  
 }

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import Persons from './components/Persons'
 import AddPerson from './components/AddPerson'
 import Filter from './components/Filter'
+import noteService from './services/persons'
 
 
 
@@ -48,16 +49,18 @@ useEffect(() => {
     }
     setPersons(persons.concat(noteObject))
     console.log(persons)
+    
+
+    noteService
+    .create(noteObject)
+    .then(response => {
+      setPersons(persons.concat(response))
     setNewName('')
     setNewNumber('')
-
-    axios
-      .post('http://localhost:3001/persons',noteObject)
-      .then(response => {
-        console.log(response)
-      })
+    })
+}
   }
-  }
+  
   return (
     <div>
        <h2>Phonebook</h2>

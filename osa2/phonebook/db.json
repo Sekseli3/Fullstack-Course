@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "persons": [
     {
       "name": "Arto Hellas",
@@ -40,31 +39,16 @@
       "name": "Juuso Jaapert",
       "id": 8,
       "number": "12301231"
+    },
+    {
+      "name": "saeppo sieppi",
+      "id": 9,
+      "number": "123321"
+    },
+    {
+      "name": "siri saara",
+      "id": 10,
+      "number": "123123"
     }
   ]
 }
-=======
-  "persons":[
-    { 
-      "name": "Arto Hellas", 
-      "number": "040-123456",
-      "id": 1
-    },
-    { 
-      "name": "Ada Lovelace", 
-      "number": "39-44-5323523",
-      "id": 2
-    },
-    { 
-      "name": "Dan Abramov", 
-      "number": "12-43-234345",
-      "id": 3
-    },
-    { 
-      "name": "Mary Poppendieck", 
-      "number": "39-23-6423122",
-      "id": 4
-    }
-  ]
-}
->>>>>>> c5e85f84e89ce82b99ed32d2398fdab0a245c590

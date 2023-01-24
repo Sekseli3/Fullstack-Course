@@ -11,3 +11,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.notification, .warning {
+  background-color: rgb(200, 200, 200);
+  font-size: 2rem;
+  font-style: inherit;
+  color: green;
+  border: 2px solid green;
+}
+.warning {
+  color: red;
+  border: 1px solid red;
+}

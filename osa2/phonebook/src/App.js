@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import Persons from './components/Persons'
+
 import AddPerson from './components/AddPerson'
 import Filter from './components/Filter'
 import noteService from './services/persons'
@@ -19,19 +19,21 @@ useEffect(() => {
 const deletePerson = (id, name) => {
   if (window.confirm(`Delete ${name}?`)) {
     noteService.remove(id).then((response) => {
-      const updatedPersons = persons.filter((person) => person.id !== id);
-      setPersons(updatedPersons);
+      const notDeleted = persons.filter((person)=>person.id !== id);
+      setPersons(notDeleted);
       
     })
   }
 }
 
 
+
+
   const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
   const [newNumber,setNewNumber] = useState('')
   const [newFilter,setNewFilter] = useState('')
-  const [newFilteredPersons,setFilteredPersons] = useState([])
+
   
   const handleNumberChange = (event) => {
     console.log(event.target.value)
@@ -46,18 +48,19 @@ const deletePerson = (id, name) => {
   const handleFilterChange = (event) => {
     console.log(event.target.value)
     setNewFilter(event.target.value)
-    setFilteredPersons(persons)
+   
   }
 
   const addPerson = (event) => {
     event.preventDefault()
-    if(persons.map(p => p.name).includes(newName)) alert(newName+' is allready in the phonebook')
-    else {
     const noteObject = {
       name: newName,
-      id: persons.length+1,
       number: newNumber,
+      id: persons.lenght,
     }
+    if(persons.map(p => p.name).includes(newName)) updatedPerson(newName,newNumber)
+
+    else {
     setPersons(persons.concat(noteObject))
     console.log(persons)
     
@@ -69,13 +72,24 @@ const deletePerson = (id, name) => {
     setNewName('')
     setNewNumber('')
     })
-}
   }
+}
+const updatedPerson = (name, newNumber) => {
+  const oldPerson = persons.find(p => p.name === name)
+  const changedPerson = { ...oldPerson, number: newNumber }
+  if (window.confirm(`${name} is allready added to phonebook, replace the old number with a new one?`)){
+    noteService
+    .update(oldPerson.id, changedPerson).then(returnedPerson => {
+      setPersons(persons.map(person => person.id !== oldPerson.id ? person : returnedPerson))
+    })
+  }
+}
   
   return (
     <div>
        <h2>Phonebook</h2>
     <Filter newFilter={newFilter} handleFilterChange={handleFilterChange}/>
+    <h2>Add a new</h2>
     <AddPerson addPerson={addPerson} handleNameChange={handleNameChange} newName={newName} newNumber={newNumber} handleNumberChange={handleNumberChange}/>
       <h2>Numbers</h2>
     

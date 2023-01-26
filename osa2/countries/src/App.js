@@ -25,7 +25,7 @@ const App = () => {
   return (
     <div>
       <div>
-        Find countries:<input
+        find countries:<input
         value={filter}
         onChange={handleFilterChange}/>
       </div>
@@ -33,7 +33,7 @@ const App = () => {
         <Country country={countriesToShow[0]} />
         : null}
       {countriesToShow.length > 10 ? 
-        <div>Too many matches, specify another filter</div>
+        <h3>Too many matches, specify another filter</h3>
         :<CountriesList countriesToShow={countriesToShow} setShow={setCountriesToShow}/>
       }
     </div>

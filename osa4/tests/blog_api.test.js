@@ -113,6 +113,28 @@ describe('deletion of a blog works', () => {
     expect(contents).not.toContain(noteToDelete.title)
   })
 })
+describe('updating a blog works', () => {
+  test('succeeded with statuscode 200',async () => {
+    const nBlog = {
+      title:'Harry potter in Italy',
+      author:'Luna Lovekiva',
+      url:'youtube.com/hevosmiestenkilta2',
+      likes: 100000,
+    }
+    const initialBlogs = await helper.blogsInDb()
+    const updated = initialBlogs[0]
+
+    await api.put(`/api/blogs/${updated.id}`)
+      .send(nBlog)
+      .expect(200)
+
+    const blogsAtEnd = await helper.blogsInDb()
+    const updatedAtEnd =blogsAtEnd[0]
+    expect(blogsAtEnd).toHaveLength(2)
+    expect(updatedAtEnd.url).toContain('youtube.com/hevosmiestenkilta2')
+    expect(updatedAtEnd.likes).toBe(100000)
+  })
+})
 
 afterAll(async () => {
   await mongoose.connection.close()

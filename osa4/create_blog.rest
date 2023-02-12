@@ -1,0 +1,7 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5paWxvIiwiaWQiOiI2M2U4YjVjZjY2MzgxYmIzNzczODk5NGUiLCJpYXQiOjE2NzYxOTcwNTl9.gnBBHZ9VVaF87Xyq_r52kC7KR5j2uwZNkJ1vWnyCEXg
+{
+    "title":"Kala",
+    "url":"kasdonasd"
+}

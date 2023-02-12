@@ -1,5 +1,7 @@
 const morgan = require('morgan')
 const logger = require('./logger')
+const jwt = require('jsonwebtoken')
+const User = require('../models/user')
 
 morgan.token('data', (req) => {
   return JSON.stringify(req.body)
@@ -31,8 +33,34 @@ const errorHandler = (error, request, response, next) => {
   next(error)
 }
 
+const tokenExtractor = (request, response, next) => {
+  const authorization = request.get('authorization')
+  if (authorization && authorization.startsWith('Bearer ')) {
+    return authorization.replace('Bearer ', '')
+  }
+
+  next()
+}
+
+const userExtractor = async (request, response, next) => {
+  const authorization = request.get('authorization')
+
+  const decodedToken = jwt.verify(authorization.substring(7), process.env.SECRET)
+  const user = await User.findById(decodedToken.id)
+
+  if(authorization && authorization.startsWith('Bearer ')){
+    request.user = user
+  } else {
+    request.user = null
+  } 
+
+  next()
+}
+
 module.exports = {
   morganLogger,
   unknownEndpoint,
   errorHandler,
+  tokenExtractor,
+  userExtractor,
 }

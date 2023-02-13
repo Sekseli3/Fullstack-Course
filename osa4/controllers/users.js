@@ -14,6 +14,10 @@ usersRouter.post('/', async (request, response) => {
     passwordHash,
   })
 
+  if (password.length < 3) {
+    response.status(400).json({ error: 'Password must be atleast 3 characters long' })
+  }
+
   const savedUser = await user.save()
 
   response.status(201).json(savedUser)

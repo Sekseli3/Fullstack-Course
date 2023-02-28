@@ -26,7 +26,6 @@ const Blog = ({blog,blogUpdate,deleteBlog}) => {
     buttonLabelClose = 'hide'>
       {blog.url}
       <div className='likes'>
-      {blog.likes === 1 ? `${blog.likes} like` : `${blog.likes} likes`}
       {blog.likes}
       <button onClick={handleLike}>like</button>
       </div>

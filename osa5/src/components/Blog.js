@@ -4,8 +4,6 @@ const Blog = ({blog,blogUpdate,deleteBlog}) => {
 
   const handleLike = () => {
     const updatedBlog = { ...blog, likes: blog.likes + 1 }
-    console.log(blog.id)
-    console.log(updatedBlog)
     blogUpdate(blog.id, updatedBlog)
   }
   const handleDelete = () => {
@@ -20,16 +18,19 @@ const Blog = ({blog,blogUpdate,deleteBlog}) => {
     marginBottom: 5
   }
   return(
-  <div style = {blogStyle}>
+  <div style = {blogStyle} className = 'blog'>
+    <div className='blogTitle'>
     {blog.title} {blog.author}
+    </div>
     <Togglable buttonLabelOpen = 'view'
     buttonLabelClose = 'hide'>
       {blog.url}
-      <div>
+      <div className='likes'>
+      {blog.likes === 1 ? `${blog.likes} like` : `${blog.likes} likes`}
       {blog.likes}
       <button onClick={handleLike}>like</button>
       </div>
-      {blog.user.name}
+      {blog.user.username}
       <div>
         <button onClick={handleDelete}>remove</button>
       </div>

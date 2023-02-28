@@ -10,9 +10,7 @@ import Togglable from './components/Togglable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [newTitle, setNewTitle] = useState('')
-  const [newAuthor, setNewAuthor] = useState('')
-  const [newUrl, setNewUrl] = useState('')
+
 
   const [errorMessage, setErrorMessage] = useState(null)
 
@@ -63,31 +61,12 @@ const App = () => {
     window.localStorage.removeItem('loggedBlogappUser')
     document.location.reload()
   }
-  const handleTitleChange = (event) => {
-    setNewTitle(event.target.value)
-  }
-
-  const handleAuthorChange = (event) => {
-    setNewAuthor(event.target.value)
-  }
-
-  const handleUrlChange = (event) => {
-    setNewUrl(event.target.value)
-  }
 
 
   
 
 
-  const addBlog = async (event) => {
-    const blogObject = {
-      title: newTitle,
-      author: newAuthor,
-      url : newUrl
-    }
-    setNewTitle('')
-    setNewAuthor('')
-    setNewUrl('')
+  const addBlog = async (blogObject) => {
 
     if (
       blogObject.title !== '' &&
@@ -172,19 +151,13 @@ const App = () => {
          {<Togglable buttonLabelOpen ='Create new Blog'
          buttonLabelClose = 'Close'>
          <BlogForm
-        handleSubmit ={addBlog}
-        title = {newTitle}
-        handleTitleChange = {handleTitleChange}
-        author = {newAuthor}
-        handleAuthorChange = {handleAuthorChange}
-        url = {newUrl}
-        handleUrlChange = {handleUrlChange}
+          createBlog={addBlog}
         />
         </Togglable>
          }
          {blogs
          .filter((blogs) => blogs.user.username === user.username)
-         .sort((first,second) => first.likes - second.likes)
+         .sort((first,second) => second.likes - first.likes)
          .map(blog =>
         <Blog key={blog.id} blog={blog} blogUpdate = {blogUpdate} deleteBlog = {deleteBlog}/>
       )}

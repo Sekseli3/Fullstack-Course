@@ -1,3 +1,5 @@
-# fullstack tehtavia
+#Fullstack Open
 
-part III found here https://github.com/Sekseli3/Fullstack-node
+A fullstack course made by University of helsinki. The main focus is on building single page applications with ReactJS that use REST APIs built with Node.js. I used React, Redux, Node.js, MongoDB, GraphQL and TypeScript.
+
+part III with fully deployed server found here https://github.com/Sekseli3/Fullstack-node
